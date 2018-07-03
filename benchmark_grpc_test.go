@@ -18,10 +18,10 @@ var (
 	}
 )
 
-// BenchmarkGRPCGet - Test the GRPC POST connection
+// BenchmarkGRPCGet - Test the GRPC GET connection
 func BenchmarkGRPCGet(b *testing.B) {
 
-	// Set up a connection to the server.
+	// Connect to the Server
 	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
 		log.Fatalf("Connection Error: %v", err)
@@ -29,7 +29,7 @@ func BenchmarkGRPCGet(b *testing.B) {
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
 
-	// run grpc calls against it
+	// Run the gRPC calls
 	for i := 0; i < b.N; i++ {
 		client.Get(context.Background(), &models.VehicleQuery{
 			Id: "12345",
@@ -40,7 +40,7 @@ func BenchmarkGRPCGet(b *testing.B) {
 // BenchmarkGRPCPost - Test the GRPC POST connection
 func BenchmarkGRPCPost(b *testing.B) {
 
-	// Set up a connection to the server.
+	// Connect to the Server
 	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
 		log.Fatalf("Connection Error: %v", err)
@@ -48,7 +48,7 @@ func BenchmarkGRPCPost(b *testing.B) {
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
 
-	// run grpc calls against it
+	// Run the gRPC calls
 	for i := 0; i < b.N; i++ {
 		client.Post(context.Background(), &models.Vehicle{
 			Manufacturer: "Audi",
@@ -59,10 +59,10 @@ func BenchmarkGRPCPost(b *testing.B) {
 	}
 }
 
-// BenchmarkGRPCPut - Test the GRPC POST connection
+// BenchmarkGRPCPut - Test the GRPC PUT connection
 func BenchmarkGRPCPut(b *testing.B) {
 
-	// Set up a connection to the server.
+	// Connect to the Server
 	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
 		log.Fatalf("Connection Error: %v", err)
@@ -70,7 +70,7 @@ func BenchmarkGRPCPut(b *testing.B) {
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
 
-	// run grpc calls against it
+	// Run the gRPC calls
 	for i := 0; i < b.N; i++ {
 		client.Put(context.Background(), &models.Vehicle{
 			Id:           "12345",
@@ -82,10 +82,10 @@ func BenchmarkGRPCPut(b *testing.B) {
 	}
 }
 
-// BenchmarkGRPCDel - Test the GRPC POST connection
+// BenchmarkGRPCDel - Test the GRPC DELETE connection
 func BenchmarkGRPCDel(b *testing.B) {
 
-	// Set up a connection to the server.
+	// Connect to the Server
 	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
 		log.Fatalf("Connection Error: %v", err)
@@ -93,7 +93,7 @@ func BenchmarkGRPCDel(b *testing.B) {
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
 
-	// run grpc calls against it
+	// Run the gRPC calls
 	for i := 0; i < b.N; i++ {
 		client.Del(context.Background(), &models.VehicleQuery{
 			Id: "12345",

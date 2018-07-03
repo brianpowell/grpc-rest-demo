@@ -22,9 +22,10 @@ var (
 	}
 )
 
-// BenchmarkRESTGet - Test the REST POST connection
+// BenchmarkRESTGet - Test the REST GET connection
 func BenchmarkRESTGet(b *testing.B) {
-	// Get to Posting
+
+	// Get to Getting
 	for i := 0; i < b.N; i++ {
 		req, _ := http.NewRequest(http.MethodGet, restAddr+"/vehicle/12345", nil)
 		req = req.WithContext(context.Background())
@@ -35,6 +36,7 @@ func BenchmarkRESTGet(b *testing.B) {
 // BenchmarkRESTPost - Test the REST POST connection
 func BenchmarkRESTPost(b *testing.B) {
 
+	// Create JSON Buffer
 	buf := bytes.NewBufferString(`
 		{
 			"manufacturer":"Audi",
@@ -43,6 +45,7 @@ func BenchmarkRESTPost(b *testing.B) {
 			"mileage": 50000
 		}
 	`)
+
 	// Get to Posting
 	for i := 0; i < b.N; i++ {
 		req, _ := http.NewRequest(http.MethodPost, restAddr+"/vehicle", buf)
@@ -51,9 +54,10 @@ func BenchmarkRESTPost(b *testing.B) {
 	}
 }
 
-// BenchmarkRESTPut - Test the REST POST connection
+// BenchmarkRESTPut - Test the REST PUT connection
 func BenchmarkRESTPut(b *testing.B) {
 
+	// Create JSON Buffer
 	buf := bytes.NewBufferString(`
 		{
 			"manufacturer":"Audi",
@@ -62,7 +66,8 @@ func BenchmarkRESTPut(b *testing.B) {
 			"mileage": 50000
 		}
 	`)
-	// Get to Posting
+
+	// Get to Puting
 	for i := 0; i < b.N; i++ {
 		req, _ := http.NewRequest(http.MethodPut, restAddr+"/vehicle/12345", buf)
 		req = req.WithContext(context.Background())
@@ -70,20 +75,12 @@ func BenchmarkRESTPut(b *testing.B) {
 	}
 }
 
-// BenchmarkRESTDel - Test the REST POST connection
+// BenchmarkRESTDel - Test the REST DELETE connection
 func BenchmarkRESTDel(b *testing.B) {
 
-	buf := bytes.NewBufferString(`
-		{
-			"manufacturer":"Audi",
-			"model":"A4",
-			"price":24999.99,
-			"mileage": 50000
-		}
-	`)
-	// Get to Posting
+	// Get to Deleting
 	for i := 0; i < b.N; i++ {
-		req, _ := http.NewRequest(http.MethodDelete, restAddr+"/vehicle/12345", buf)
+		req, _ := http.NewRequest(http.MethodDelete, restAddr+"/vehicle/12345", nil)
 		req = req.WithContext(context.Background())
 		restClient.Do(req)
 	}

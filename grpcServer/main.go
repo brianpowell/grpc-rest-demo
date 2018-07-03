@@ -40,7 +40,8 @@ func ServerGRPC(addr, certFile, keyFile string) {
 
 // Get - implements our VehicleServer
 func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
-	//
+
+	// Validate the Query
 	if err := in.Validate(); err != nil {
 		return &models.VehicleReply{
 			Success: false,
@@ -58,7 +59,7 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 		Mileage:      50000,
 	}
 
-	// Return the
+	// Return the Reply
 	return &models.VehicleReply{
 		Success: true,
 		Message: "Vehicle found",
@@ -68,7 +69,8 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 
 // Post - implements our VehicleServer
 func (s *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
-	//
+
+	// Validate the Post Vehicle
 	if err := in.Validate(false); err != nil {
 		return &models.VehicleReply{
 			Success: false,
@@ -78,7 +80,7 @@ func (s *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.V
 
 	// To Do: Insert into DB (not for this demo)
 
-	// Return the
+	// Return the Reply
 	return &models.VehicleReply{
 		Success: true,
 		Message: "Vehicle created",
@@ -88,7 +90,8 @@ func (s *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.V
 
 // Put - implements our VehicleServer
 func (s *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
-	//
+
+	// Validate the Put Vehicle
 	if err := in.Validate(true); err != nil {
 		return &models.VehicleReply{
 			Success: false,
@@ -98,7 +101,7 @@ func (s *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.Ve
 
 	// To Do: Update in DB (not for this demo)
 
-	// Return the
+	// Return the Reply
 	return &models.VehicleReply{
 		Success: true,
 		Message: "Vehicle updated",
@@ -108,7 +111,8 @@ func (s *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.Ve
 
 // Delete - implements our VehicleServer
 func (s *vehicleServer) Del(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
-	//
+
+	// Validate the Query
 	if err := in.Validate(); err != nil {
 		return &models.VehicleReply{
 			Success: false,
@@ -118,7 +122,7 @@ func (s *vehicleServer) Del(ctx context.Context, in *models.VehicleQuery) (*mode
 
 	// To Do: Delete Vehicle from DB (not for this demo)
 
-	// Return the
+	// Return the Reply
 	return &models.VehicleReply{
 		Success: true,
 		Message: "Vehicle deleted",

@@ -59,7 +59,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 
 	veh := models.Vehicle{}
 
-	// decode input
+	// Marshal the input
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&veh)
 	r.Body.Close()
@@ -93,7 +93,7 @@ func Put(w http.ResponseWriter, r *http.Request) {
 
 	veh := models.Vehicle{}
 
-	// decode input
+	// Marshal the input
 	decoder := json.NewDecoder(r.Body)
 	decoder.Decode(&veh)
 	r.Body.Close()
