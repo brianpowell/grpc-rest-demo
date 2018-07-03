@@ -40,6 +40,8 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 		}, err
 	}
 
+	fmt.Println("GET RGPC: ", in.GetId())
+
 	// To Do: Grab Vehicle from DB (not for this demo)
 	veh := &models.Vehicle{
 		Manufacturer: "Audi",
