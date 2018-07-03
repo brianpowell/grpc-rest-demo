@@ -34,7 +34,7 @@ func ServerGRPC(addr, certFile, keyFile string) {
 	s := grpc.NewServer(grpc.Creds(credentials.NewTLS(config)))
 
 	models.RegisterVehicleServerServer(s, &vehicleServer{})
-	fmt.Println("RGPC Server: ", addr)
+	fmt.Println("gRPC Server: ", addr)
 	s.Serve(lis)
 }
 
@@ -48,8 +48,6 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 			Message: err.Error(),
 		}, err
 	}
-
-	fmt.Println("GET RGPC: ", in.GetId())
 
 	// To Do: Grab Vehicle from DB (not for this demo)
 	veh := &models.Vehicle{
