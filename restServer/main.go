@@ -7,16 +7,16 @@ import (
 	"net/http"
 
 	"github.com/brianpowell/grpc-rest-demo/models"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
 )
 
 // ServerREST - Main function to start the Server
 func ServerREST(addr string) {
-	r := mux.NewRouter()
-	r.HandleFunc("/vehicle/{id}", Get).Methods("GET")
-	r.HandleFunc("/vehicle", Post).Methods("POST")
-	r.HandleFunc("/vehicle/{id}", Put).Methods("PUT")
-	r.HandleFunc("/vehicle/{id}", Del).Methods("DELETE")
+	r := chi.NewRouter()
+	r.Get("/vehicle/{id}", Get)
+	r.Post("/vehicle", Post)
+	r.Put("/vehicle/{id}", Put)
+	r.Delete("/vehicle/{id}", Del)
 	fmt.Println("REST Server: ", addr)
 	log.Fatal(http.ListenAndServe(addr, r))
 }
@@ -32,8 +32,8 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Grab URL value
-	vars := mux.Vars(r)
-	if vars["id"] == "" {
+	id := chi.URLParam(r, "id")
+	if id == "" {
 		code = 404
 		resp.Success = false
 		resp.Message = "Id must be present"
@@ -132,8 +132,8 @@ func Del(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Grab URL value
-	vars := mux.Vars(r)
-	if vars["id"] == "" {
+	id := chi.URLParam(r, "id")
+	if id == "" {
 		code = 404
 		resp.Success = false
 		resp.Message = "Id must be present"

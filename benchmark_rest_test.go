@@ -5,14 +5,20 @@ import (
 	"context"
 	"net/http"
 	"testing"
+	"time"
 )
 
 // BenchmarkRESTGet - Test the REST POST connection
 func BenchmarkRESTGet(b *testing.B) {
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost: 20,
+		},
+		Timeout: time.Duration(3) * time.Millisecond,
+	}
 	// Get to Posting
 	for i := 0; i < b.N; i++ {
-		req, _ := http.NewRequest(http.MethodGet, "https://localhost:3001/12345", nil)
+		req, _ := http.NewRequest(http.MethodGet, "http://localhost:3001/12345", nil)
 		req = req.WithContext(context.Background())
 		client.Do(req)
 	}
@@ -20,7 +26,12 @@ func BenchmarkRESTGet(b *testing.B) {
 
 // BenchmarkRESTPost - Test the REST POST connection
 func BenchmarkRESTPost(b *testing.B) {
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost: 20,
+		},
+		Timeout: time.Duration(3) * time.Millisecond,
+	}
 
 	buf := bytes.NewBufferString(`
 		{
@@ -32,7 +43,7 @@ func BenchmarkRESTPost(b *testing.B) {
 	`)
 	// Get to Posting
 	for i := 0; i < b.N; i++ {
-		req, _ := http.NewRequest(http.MethodPost, "https://localhost:3001", buf)
+		req, _ := http.NewRequest(http.MethodPost, "http://localhost:3001", buf)
 		req = req.WithContext(context.Background())
 		client.Do(req)
 	}
@@ -40,7 +51,12 @@ func BenchmarkRESTPost(b *testing.B) {
 
 // BenchmarkRESTPut - Test the REST POST connection
 func BenchmarkRESTPut(b *testing.B) {
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost: 20,
+		},
+		Timeout: time.Duration(3) * time.Millisecond,
+	}
 
 	buf := bytes.NewBufferString(`
 		{
@@ -52,7 +68,7 @@ func BenchmarkRESTPut(b *testing.B) {
 	`)
 	// Get to Posting
 	for i := 0; i < b.N; i++ {
-		req, _ := http.NewRequest(http.MethodPut, "https://localhost:3001/12345", buf)
+		req, _ := http.NewRequest(http.MethodPut, "http://localhost:3001/12345", buf)
 		req = req.WithContext(context.Background())
 		client.Do(req)
 	}
@@ -60,7 +76,12 @@ func BenchmarkRESTPut(b *testing.B) {
 
 // BenchmarkRESTDel - Test the REST POST connection
 func BenchmarkRESTDel(b *testing.B) {
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost: 20,
+		},
+		Timeout: time.Duration(3) * time.Millisecond,
+	}
 
 	buf := bytes.NewBufferString(`
 		{
@@ -72,7 +93,7 @@ func BenchmarkRESTDel(b *testing.B) {
 	`)
 	// Get to Posting
 	for i := 0; i < b.N; i++ {
-		req, _ := http.NewRequest(http.MethodDelete, "https://localhost:3001/12345", buf)
+		req, _ := http.NewRequest(http.MethodDelete, "http://localhost:3001/12345", buf)
 		req = req.WithContext(context.Background())
 		client.Do(req)
 	}
