@@ -10,20 +10,31 @@ import (
 	"github.com/go-chi/chi"
 )
 
+type vehicleServer struct{}
+
 // ServerREST - Main function to start the Server
 func ServerREST(addr, cert, key string) {
-	r := chi.NewRouter()
-	r.Get("/vehicle/{id}", Get)
-	r.Post("/vehicle", Post)
-	r.Put("/vehicle/{id}", Put)
-	r.Delete("/vehicle/{id}", Del)
-	fmt.Println("REST Server: ", addr)
-	log.Fatal(http.ListenAndServeTLS(addr, cert, key, r))
 
+	// Establish chi Router
+	r := chi.NewRouter()
+
+	// New vehicleServer
+	v := vehicleServer{}
+
+	// Build Routes
+	r.Get("/vehicle/{id}", v.Get)
+	r.Post("/vehicle", v.Post)
+	r.Put("/vehicle/{id}", v.Put)
+	r.Delete("/vehicle/{id}", v.Del)
+
+	fmt.Println("REST Server: ", addr)
+
+	// Listen with TLS
+	log.Fatal(http.ListenAndServeTLS(addr, cert, key, r))
 }
 
 // Get - Rest HTTP Handler
-func Get(w http.ResponseWriter, r *http.Request) {
+func (v *vehicleServer) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Stub the response values
 	code := 200
@@ -55,7 +66,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 // Post - Rest HTTP Handler
-func Post(w http.ResponseWriter, r *http.Request) {
+func (v *vehicleServer) Post(w http.ResponseWriter, r *http.Request) {
 
 	veh := models.Vehicle{}
 
@@ -89,7 +100,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 }
 
 // Put - Rest HTTP Handler
-func Put(w http.ResponseWriter, r *http.Request) {
+func (v *vehicleServer) Put(w http.ResponseWriter, r *http.Request) {
 
 	veh := models.Vehicle{}
 
@@ -123,7 +134,7 @@ func Put(w http.ResponseWriter, r *http.Request) {
 }
 
 // Del - Rest HTTP Handler
-func Del(w http.ResponseWriter, r *http.Request) {
+func (v *vehicleServer) Del(w http.ResponseWriter, r *http.Request) {
 
 	// Stub the response values
 	code := 200

@@ -19,27 +19,31 @@ type vehicleServer struct {
 
 // ServerGRPC - Main function to start the Server
 func ServerGRPC(addr, certFile, keyFile string) {
+
+	// Setup TCP Connection
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Fatalf("Listen Error: %v", err)
 	}
 
+	// Load Certs
 	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Cert Error: %v", err)
 	}
 	config := &tls.Config{
 		Certificates: []tls.Certificate{cert},
 	}
 	s := grpc.NewServer(grpc.Creds(credentials.NewTLS(config)))
 
+	// Register Vehicle Server
 	models.RegisterVehicleServerServer(s, &vehicleServer{})
 	fmt.Println("gRPC Server: ", addr)
 	s.Serve(lis)
 }
 
 // Get - implements our VehicleServer
-func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
+func (v *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
 
 	// Validate the Query
 	if err := in.Validate(); err != nil {
@@ -67,7 +71,7 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 }
 
 // Post - implements our VehicleServer
-func (s *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
+func (v *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
 
 	// Validate the Post Vehicle
 	if err := in.Validate(false); err != nil {
@@ -88,7 +92,7 @@ func (s *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.V
 }
 
 // Put - implements our VehicleServer
-func (s *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
+func (v *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
 
 	// Validate the Put Vehicle
 	if err := in.Validate(true); err != nil {
@@ -109,7 +113,7 @@ func (s *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.Ve
 }
 
 // Delete - implements our VehicleServer
-func (s *vehicleServer) Del(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
+func (v *vehicleServer) Del(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
 
 	// Validate the Query
 	if err := in.Validate(); err != nil {
