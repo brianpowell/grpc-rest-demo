@@ -1,0 +1,41 @@
+syntax = "proto3";
+package models;
+
+// Service Definition
+service VehicleServer {
+  // Request handlers
+  rpc Get (VehicleQuery) returns (VehicleReply) {}
+  rpc Post (Vehicle) returns (VehicleReply) {}
+  rpc Put (Vehicle) returns (VehicleReply) {}
+  rpc Del (VehicleQuery) returns (VehicleReply) {}
+}
+
+// The request message containing the Vehicle Information
+message Vehicle {
+    string id = 1;
+    string manufacturer = 2;
+    string model = 3;
+    float price = 4;
+    int32 mileage = 5;
+    string exterior_color = 6;
+    string interior_color = 7;
+
+    enum Transmission {
+        AUTOMATIC = 0;
+        MANUAL = 1;
+    }
+    Transmission transmission = 8;
+}
+
+// The response message containing the status of the request
+message VehicleQuery {
+  string id = 1;
+  string query = 2;
+}
+
+// The response message containing the status of the request
+message VehicleReply {
+  bool success = 1;
+  string message = 2;
+  Vehicle data = 3;
+}
