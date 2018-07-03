@@ -18,18 +18,19 @@ type vehicleServer struct {
 }
 
 // ServerGRPC - Main function to start the Server
-func ServerGRPC(addr string) {
+func ServerGRPC(addr, certFile, keyFile string) {
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}
 
-	config := &tls.Config{}
-	cert, err := tls.LoadX509KeyPair("localhost.crt", "localhost.key")
+	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	config.Certificates = []tls.Certificate{cert}
+	config := &tls.Config{
+		Certificates: []tls.Certificate{cert},
+	}
 	s := grpc.NewServer(grpc.Creds(credentials.NewTLS(config)))
 
 	models.RegisterVehicleServerServer(s, &vehicleServer{})

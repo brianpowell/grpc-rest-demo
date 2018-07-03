@@ -3,16 +3,20 @@ package main
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"net/http"
 	"testing"
 	"time"
 )
 
 var (
-	restAddr   = "http://localhost:3001"
+	restAddr   = "https://localhost:3001"
 	restClient = &http.Client{
 		Transport: &http.Transport{
 			MaxIdleConnsPerHost: 20,
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
 		},
 		Timeout: time.Duration(3) * time.Millisecond,
 	}

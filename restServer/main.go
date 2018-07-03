@@ -11,14 +11,15 @@ import (
 )
 
 // ServerREST - Main function to start the Server
-func ServerREST(addr string) {
+func ServerREST(addr, cert, key string) {
 	r := chi.NewRouter()
 	r.Get("/vehicle/{id}", Get)
 	r.Post("/vehicle", Post)
 	r.Put("/vehicle/{id}", Put)
 	r.Delete("/vehicle/{id}", Del)
 	fmt.Println("REST Server: ", addr)
-	log.Fatal(http.ListenAndServe(addr, r))
+	log.Fatal(http.ListenAndServeTLS(addr, cert, key, r))
+
 }
 
 // Get - Rest HTTP Handler
