@@ -21,10 +21,17 @@ type vehicleServer struct {
 func ServerGRPC(addr string) {
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("Error: %v", err)
 	}
 
-	s := grpc.NewServer(grpc.Creds(credentials.NewTLS(&tls.Config{})))
+	config := &tls.Config{}
+	cert, err := tls.LoadX509KeyPair("localhost.crt", "localhost.key")
+	if err != nil {
+		log.Fatal(err)
+	}
+	config.Certificates = []tls.Certificate{cert}
+	s := grpc.NewServer(grpc.Creds(credentials.NewTLS(config)))
+
 	models.RegisterVehicleServerServer(s, &vehicleServer{})
 	fmt.Println("RGPC Server: ", addr)
 	s.Serve(lis)

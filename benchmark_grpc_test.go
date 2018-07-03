@@ -15,7 +15,9 @@ import (
 func BenchmarkGRPCGet(b *testing.B) {
 
 	// Set up a connection to the server.
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
+	config := &tls.Config{}
+	config.InsecureSkipVerify = true
+	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -34,7 +36,9 @@ func BenchmarkGRPCGet(b *testing.B) {
 func BenchmarkGRPCPost(b *testing.B) {
 
 	// Set up a connection to the server.
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
+	config := &tls.Config{}
+	config.InsecureSkipVerify = true
+	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -56,7 +60,9 @@ func BenchmarkGRPCPost(b *testing.B) {
 func BenchmarkGRPCPut(b *testing.B) {
 
 	// Set up a connection to the server.
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
+	config := &tls.Config{}
+	config.InsecureSkipVerify = true
+	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -79,7 +85,9 @@ func BenchmarkGRPCPut(b *testing.B) {
 func BenchmarkGRPCDel(b *testing.B) {
 
 	// Set up a connection to the server.
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
+	config := &tls.Config{}
+	config.InsecureSkipVerify = true
+	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
