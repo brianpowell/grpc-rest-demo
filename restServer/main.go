@@ -19,7 +19,7 @@ func ServerREST(addr, cert, key string) {
 	r := chi.NewRouter()
 
 	// New vehicleServer
-	v := vehicleServer{}
+	var v vehicleServer
 
 	// Build Routes
 	r.Get("/vehicle/{id}", v.Get)
@@ -68,7 +68,7 @@ func (v *vehicleServer) Get(w http.ResponseWriter, r *http.Request) {
 // Post - Rest HTTP Handler
 func (v *vehicleServer) Post(w http.ResponseWriter, r *http.Request) {
 
-	veh := models.Vehicle{}
+	var veh models.Vehicle
 
 	// Marshal the input
 	decoder := json.NewDecoder(r.Body)
@@ -102,7 +102,7 @@ func (v *vehicleServer) Post(w http.ResponseWriter, r *http.Request) {
 // Put - Rest HTTP Handler
 func (v *vehicleServer) Put(w http.ResponseWriter, r *http.Request) {
 
-	veh := models.Vehicle{}
+	var veh models.Vehicle
 
 	// Marshal the input
 	decoder := json.NewDecoder(r.Body)
