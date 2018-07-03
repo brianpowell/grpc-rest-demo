@@ -7,26 +7,26 @@ import (
 	"github.com/dchest/uniuri"
 )
 
-// validationErrors - custom error type that can take many errors
-type validationErrors []error
+// errorsList - list of errors
+type errorsList []error
 
-// Error - implementation of error interface
-func (ve validationErrors) Error() string {
+// Error - compress the list to a single string
+func (el errorsList) Error() string {
 	var errStr string
-	for _, v := range ve {
+	for _, v := range el {
 		errStr += fmt.Sprintf("%s\n", v.Error())
 	}
 	return errStr
 }
 
-// Validate - implementation of Validatable
-func (veh *VehicleQuery) Validate() error {
-	var err validationErrors
-	if veh.Id == "" && veh.Query == "" {
-		if veh.Id == "" {
+// Validate - the Query submission
+func (qu *VehicleQuery) Validate() error {
+	var err errorsList
+	if qu.Id == "" && qu.Query == "" {
+		if qu.Id == "" {
 			err = append(err, errors.New("Missing id information"))
 		}
-		if veh.Query == "" {
+		if qu.Query == "" {
 			err = append(err, errors.New("Missing query information"))
 		}
 	}
@@ -38,9 +38,9 @@ func (veh *VehicleQuery) Validate() error {
 	return err
 }
 
-// Validate - the Vehcile submission
+// Validate - the Vehicle submission
 func (veh *Vehicle) Validate(put bool) error {
-	var err validationErrors
+	var err errorsList
 	if veh.Id == "" && !put {
 		veh.Id = uniuri.NewLen(16)
 	} else if veh.Id == "" && put {
