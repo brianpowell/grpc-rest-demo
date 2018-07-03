@@ -10,7 +10,8 @@ Head into the Go Project folder
 We need some certs to make the TLS work for the Routers.
 ## Generate a Self-signed Certificate
 `$ openssl req  -newkey rsa:2048 -nodes -keyout localhost.key -x509 -days 365 -out localhost.crt`
-*Make sure the `Common Name:` is `localhost`*
+
+**Make sure the `Common Name:` is `localhost`**
 
 This will produce a `localhost.key` and `localhost.crt` in the root directory of the project. These will be used with the connections to provide TLS services.
 
