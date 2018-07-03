@@ -1,11 +1,11 @@
 This project strives to show matching gRPC and RESTful API implementations that allow users to see the benchmarks via each approach. The approach assumes the need to Marshal the HTTP calls into structs via their JSON definitions.
 
 ## Download the project
-`go get github.com/brianpowell/grpc-rest-demo`
+`$ go get github.com/brianpowell/grpc-rest-demo`
 
 Head into the Go Project folder
 ## Step into the directory
-`cd $GOPATH/src/github.com/brianpowell/grpc-rest-demo`
+`$ cd $GOPATH/src/github.com/brianpowell/grpc-rest-demo`
 
 We need some certs to make the TLS work for the Routers.
 ## Generate a Self-signed Certificate
