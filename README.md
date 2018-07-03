@@ -1,17 +1,18 @@
 This project strives to show matching gRPC and RESTful API implementations that allow users to see the benchmarks via each approach. The approach assumes the need to Marshal the HTTP calls into structs via their JSON definitions.
 
+## Download the project
+`go get github.com/brianpowell/grpc-rest-demo`
+
+Head into the Go Project folder
+## Step into the directory
+`cd $GOPATH/src/github.com/brianpowell/grpc-rest-demo`
+
+We need some certs to make the TLS work for the Routers.
 ## Generate a Self-signed Certificate
-```
-$ cd /grpc-rest-demo
-$ openssl req  -newkey rsa:2048 -nodes -keyout localhost.key -x509 -days 365 -out localhost.crt
-```
+`$ openssl req  -newkey rsa:2048 -nodes -keyout localhost.key -x509 -days 365 -out localhost.crt`
 *Make sure the `Common Name:` is `localhost`*
 
 This will produce a `localhost.key` and `localhost.crt` in the root directory of the project. These will be used with the connections to provide TLS services.
-
-Now, we need to get setup.
-## Run the Server (Term window 1)
-`$ go get`
 
 Now that we have all the dependencies, we need to start the servers.
 ## Run the Server (Term window 1)
