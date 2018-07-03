@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/brianpowell/demo/models"
+	"github.com/brianpowell/grpc-rest-demo/models"
 	"github.com/gorilla/mux"
 )
 

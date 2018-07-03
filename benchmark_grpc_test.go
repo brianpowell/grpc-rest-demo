@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/brianpowell/demo/models"
+	"github.com/brianpowell/grpc-rest-demo/models"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"

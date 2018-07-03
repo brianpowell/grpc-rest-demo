@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/brianpowell/demo/grpcServer"
-	"github.com/brianpowell/demo/restServer"
+	"github.com/brianpowell/grpc-rest-demo/grpcServer"
+	"github.com/brianpowell/grpc-rest-demo/restServer"
 )
 
 func main() {
