@@ -27,7 +27,7 @@ message Vehicle {
     Transmission transmission = 8;
 }
 
-// The response message containing the status of the request
+// The query message used on GET and DELETE
 message VehicleQuery {
   string id = 1;
   string query = 2;
