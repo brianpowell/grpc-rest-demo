@@ -42,7 +42,7 @@ func ServerGRPC(addr, certFile, keyFile string) {
 	s.Serve(lis)
 }
 
-// Get - implements our VehicleServer
+// Get - gRCP Handler
 func (v *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
 
 	// Validate the Query
@@ -70,7 +70,7 @@ func (v *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 	}, nil
 }
 
-// Post - implements our VehicleServer
+// Post - gRCP Handler
 func (v *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
 
 	// Validate the Post Vehicle
@@ -91,7 +91,7 @@ func (v *vehicleServer) Post(ctx context.Context, in *models.Vehicle) (*models.V
 	}, nil
 }
 
-// Put - implements our VehicleServer
+// Put - gRCP Handler
 func (v *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.VehicleReply, error) {
 
 	// Validate the Put Vehicle
@@ -112,7 +112,7 @@ func (v *vehicleServer) Put(ctx context.Context, in *models.Vehicle) (*models.Ve
 	}, nil
 }
 
-// Delete - implements our VehicleServer
+// Delete - gRCP Handler
 func (v *vehicleServer) Del(ctx context.Context, in *models.VehicleQuery) (*models.VehicleReply, error) {
 
 	// Validate the Query
