@@ -15,10 +15,10 @@ We need some certs to make the TLS work for the Routers.
 
 This will produce a `localhost.key` and `localhost.crt` in the root directory of the project. These will be used with the connections to provide TLS services.
 
-Now that we have all the dependencies, we need to start the servers.
+Now that we have all the dependencies, we need to start the servers. We will need two terminal windows.
 ## Run the Server (Term window 1)
 `$ go run main.go`
 
 Now that we have the servers up, we can run the benchmarks to compare the performance.
-## Run Bechmark Tests (Term window 1)
+## Run Bechmark Tests (Term window 2)
 `$ go test -run=Bench* -benchtime=2s -bench=.`
