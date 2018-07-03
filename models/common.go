@@ -30,10 +30,15 @@ func (veh *VehicleQuery) Validate() error {
 			err = append(err, errors.New("Missing query information"))
 		}
 	}
+
+	// Check the errors list
+	if len(err) == 0 {
+		return nil
+	}
 	return err
 }
 
-// Validate - implementation of Validatable
+// Validate - the Vehcile submission
 func (veh *Vehicle) Validate(put bool) error {
 	var err validationErrors
 	if veh.Id == "" && !put {
@@ -53,6 +58,11 @@ func (veh *Vehicle) Validate(put bool) error {
 	if veh.Mileage <= 0 {
 		err = append(err, errors.New("Mileage must be real"))
 	}
+	if len(err) == 0 {
+		return nil
+	}
+
+	// Check the errors list
 	if len(err) == 0 {
 		return nil
 	}

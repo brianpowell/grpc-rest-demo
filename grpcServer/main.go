@@ -51,6 +51,7 @@ func (s *vehicleServer) Get(ctx context.Context, in *models.VehicleQuery) (*mode
 
 	// To Do: Grab Vehicle from DB (not for this demo)
 	veh := &models.Vehicle{
+		Id:           "12345",
 		Manufacturer: "Audi",
 		Model:        "A4",
 		Price:        24999.99,
