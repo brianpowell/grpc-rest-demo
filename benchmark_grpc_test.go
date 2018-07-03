@@ -11,15 +11,20 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+var (
+	grpcAddr      = "localhost:3000"
+	grpcTLSConfig = &tls.Config{
+		InsecureSkipVerify: true,
+	}
+)
+
 // BenchmarkGRPCGet - Test the GRPC POST connection
 func BenchmarkGRPCGet(b *testing.B) {
 
 	// Set up a connection to the server.
-	config := &tls.Config{}
-	config.InsecureSkipVerify = true
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
+	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Connection Error: %v", err)
 	}
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
@@ -36,11 +41,9 @@ func BenchmarkGRPCGet(b *testing.B) {
 func BenchmarkGRPCPost(b *testing.B) {
 
 	// Set up a connection to the server.
-	config := &tls.Config{}
-	config.InsecureSkipVerify = true
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
+	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Connection Error: %v", err)
 	}
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
@@ -60,11 +63,9 @@ func BenchmarkGRPCPost(b *testing.B) {
 func BenchmarkGRPCPut(b *testing.B) {
 
 	// Set up a connection to the server.
-	config := &tls.Config{}
-	config.InsecureSkipVerify = true
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
+	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Connection Error: %v", err)
 	}
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
@@ -85,11 +86,9 @@ func BenchmarkGRPCPut(b *testing.B) {
 func BenchmarkGRPCDel(b *testing.B) {
 
 	// Set up a connection to the server.
-	config := &tls.Config{}
-	config.InsecureSkipVerify = true
-	conn, err := grpc.Dial("localhost:3000", grpc.WithTransportCredentials(credentials.NewTLS(config)))
+	conn, err := grpc.Dial(grpcAddr, grpc.WithTransportCredentials(credentials.NewTLS(grpcTLSConfig)))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Connection Error: %v", err)
 	}
 	defer conn.Close()
 	client := models.NewVehicleServerClient(conn)
